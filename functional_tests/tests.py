@@ -140,8 +140,8 @@ class ExistingUserTest(PypoLiveServerTestCase):
         self.assertEqual(1, len(items), 'Item was not added')
         self.assertEqual(EXAMPLE_COM, items[0].get_attribute('href'))
 
-        # The domain is in the link text
-        self.assertIn(u'[example.com]', items[0].text)
+        # The domain is an extra link
+        self.assertIn(u'[example.com]', self.b.find_element_by_class_name('domain_link').text)
 
     def test_unable_to_add_duplicate(self):
         self.create_pre_authenticated_session()
@@ -188,7 +188,7 @@ class ExistingUserTest(PypoLiveServerTestCase):
         items = self.b.find_elements_by_class_name('item_link')
         self.assertEqual(1, len(items), 'Item not found in results')
         self.assertEqual(EXAMPLE_COM, items[0].get_attribute('href'))
-        self.assertIn('[example.com]', items[0].text)
+        self.assertIn('[example.com]', self.b.find_element_by_class_name('domain_link').text)
 
     def test_added_items_are_searchable_by_domain(self):
         self.create_pre_authenticated_session()
@@ -205,7 +205,7 @@ class ExistingUserTest(PypoLiveServerTestCase):
         items = self.b.find_elements_by_class_name('item_link')
         self.assertEqual(1, len(items), 'Item not found in results')
         self.assertEqual(EXAMPLE_COM, items[0].get_attribute('href'))
-        self.assertIn('[example.com]', items[0].text)
+        self.assertIn('[example.com]', self.b.find_element_by_class_name('domain_link').text)
 
     def test_invalid_searches_return_no_results(self):
         self.create_pre_authenticated_session()
