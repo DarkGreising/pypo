@@ -1,8 +1,11 @@
 <div class="col-md-4 item">
     <div class="panel panel-default">
         <div class="panel-heading item-header">
-            <a class="item_link" href="{{item.url}}">{{item.title}}
-                {% if item.domain %}[{{item.domain}}]{% endif %}</a>
+            <a class="item_link" href="{{item.url}}">{{item.title}}</a>
+            {% if item.domain %}
+                {# readme.views.search doesn't have q arg declared, but uses it anyway #}
+                <a href="{% url "readme.views.search" %}?q={{ item.domain|iriencode }}">[{{item.domain}}]</a>
+            {% endif %}
         </div>
         <div class="panel-body item-content">
             <div class="row">
