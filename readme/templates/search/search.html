@@ -21,7 +21,10 @@
             {% endfor %}
         </div>
 
-        {% if facets.fields.tags %}
+        {# This fixes the main issue with the link making method below: #}
+        {# If there's only one tag left and the user clicks it again and again #}
+        {# the URL gets longer and longer until 400/500 error. #}
+        {% if facets.fields.tags|length > 1 %}
         <h3>Tags</h3>
 
         <div class="row">
